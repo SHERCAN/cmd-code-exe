@@ -7,8 +7,10 @@ if __name__ == '__main__':
     multiprocessing.freeze_support()
     if os.getenv('CLIENT') == None:
         data=input('Please insert the client data: ')
-        os.environ["CLIENT"] = data
-        logging.warning("Added client")    
+        if os.system("SETX {0} {1} /M".format('CLIENT', data))==0:
+            logging.warning("Added client")    
+        else:
+            logging.warning("Added client error")    
     else:
         logging.warning("Client finded")    
     hosts_location="C:\\Windows\\System32\\drivers\\etc\\hosts"
@@ -25,3 +27,4 @@ if __name__ == '__main__':
     else:
         print("SUCCESS ", output)
     logging.warning("Reboot is necessary")
+    input('Press enter to continue')
